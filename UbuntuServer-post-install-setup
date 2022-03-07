@@ -38,7 +38,7 @@ sleep 5
 sudo systemctl restart fail2ban
 
 #Install Docker engine
- sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 #Create a backup of the existing sshd_config file
 sudo chmod 777 /etc/ssh/
