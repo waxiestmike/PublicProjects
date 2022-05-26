@@ -2,22 +2,15 @@
 
 #Updates the software
 sudo apt update && sudo apt upgrade -y
-
-
 #Disable the root account completely
 sudo passwd -l root
-
-
 #Sets firewall settings and enables firewall
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
 sudo ufw allow 222
 sudo ufw enable
-
-
 #Install and configure  Fail2Ban
 sudo apt install fail2ban -y
-
 sudo chmod 777 /etc/fail2ban
 sudo cat <<EOF > /etc/fail2ban/jail.local
 [DEFAULT]
@@ -36,10 +29,6 @@ sudo chmod u=rwx,g=rx,o=rx /etc/fail2ban
 echo "THE jail.local FILE HAS BEEN CREATED AND CONFIGURED!"
 sleep 5
 sudo systemctl restart fail2ban
-
-#Install Docker engine
-sudo apt-get install docker-ce docker-ce-cli containerd.io
-
 #Create a backup of the existing sshd_config file
 sudo chmod 777 /etc/ssh/
 backup_sshd_config(){
@@ -53,8 +42,6 @@ backup_sshd_config(){
 }
 backup_sshd_config
 sudo chmod u=rwx,g=rx,o=rx /etc/ssh/
-
-
 #Edit the sshd_config file
 sudo chmod 777 /etc/ssh/sshd_config
 sudo cat <<EOF > /etc/ssh/sshd_config
@@ -189,17 +176,13 @@ EOF
 sudo chmod u=rw,g=r,o=r /etc/ssh/sshd_config
 echo "THE SSHD_CONFIG FILE HAS BEEN CHANGED!"
 sleep 5
-
-
 #Install and setup Google Authenticator for MFA on SSH
 sudo apt install libpam-google-authenticator -y
-
 sudo chmod 777 /etc/pam.d/sshd
 sudo echo 'auth required pam_google_authenticator.so' >> /etc/pam.d/sshd
 sudo chmod u=rw,g=r,o=r /etc/pam.d/sshd
 echo "THE /etc/pam.d/sshd FILE HAS BEEN CHANGED!"
 sleep 5
-
 #Run Google Authenticator setup 
 google-authenticator
 
